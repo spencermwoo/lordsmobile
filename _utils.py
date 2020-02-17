@@ -20,7 +20,7 @@ def get_url(url: str):
 import pyscreenshot
 import time
 
-def screenshot(min_x, min_y, max_x, max_y, filename: str=None):
+def take_screenshot(min_x, min_y, max_x, max_y, filename: str=None):
     box = (min_x, min_y, max_x, max_y)
     im = pyscreenshot.grab(bbox=box)
 
@@ -28,3 +28,5 @@ def screenshot(min_x, min_y, max_x, max_y, filename: str=None):
     	filename = str(int(time.time())) + '.png'
 
     im.save(filename)
+
+    return filename
