@@ -45,4 +45,5 @@ Thumbs.db
 __pycache__/
 html/
 *.tgz
-
+*.png
+*.DS_Store
