@@ -63,4 +63,4 @@ A copy is provided in this repository however if for some reason it is absent, i
 ### <a id="reference"></a>Reference
 
 * https://code.tutsplus.com/tutorials/how-to-build-a-python-bot-that-can-play-web-games--active-11117
-* Add others
+* https://www.pyimagesearch.com/2017/07/10/using-tesseract-ocr-python/

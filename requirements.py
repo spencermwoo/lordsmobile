@@ -13,6 +13,7 @@ pip install pywin32
 pip install pillow
 pip install opencv-python
 pip install pytesseract
+pip install image
 
 # Set tesseract path
 
