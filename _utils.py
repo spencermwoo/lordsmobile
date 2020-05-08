@@ -46,3 +46,16 @@ def take_screenshot(min_x, min_y, max_x, max_y, filename: str=None):
     im.save(filename)
 
     return filename
+
+import subprocess
+
+def run_process(output, program, cmd, *params):
+    if not quiet:
+        print("\t" + program + " " + cmd + " " +
+              ' '.join(str(x) for x in params[0]), flush=True)
+
+    args = [program] + [cmd] + params[0]
+    process = subprocess.Popen(args, stdout=subprocess.PIPE, cwd=dir_path)
+
+    if output:
+        return process.communicate()[0].decode("UTF-8", "replace")
