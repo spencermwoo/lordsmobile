@@ -72,3 +72,13 @@ def set_coordinates(coordinates):
     time.sleep(1)
 
     button_go()
+
+def click_mouse_at(coordinates):
+    _mouse_set(coordinates)
+
+    time.sleep(1)
+
+    _mouse_click()
+
+def move_mouse_at(coordinates):
+    _mouse_set(coordinates)

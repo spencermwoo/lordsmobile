@@ -8,7 +8,7 @@ def poll_coordinates(seconds):
     print(_get_coordinates())
 
     time.sleep(seconds)
-    coordEvery(seconds)
+    poll_coordinates(seconds)
 
 # Change to trigger?
 # Use to generate `_settings.py` via delta?

@@ -33,7 +33,7 @@ Examples :
 
 ### <a id="setup"></a>Setup
 
-Requirements : Python 3.6+
+Requirements : Windows, Python 3.6+
 
 Run `configure.py` to 
 * (1) Install requirements
