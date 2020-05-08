@@ -13,8 +13,9 @@ from _polling import *
 REPEAT_MAX = 5;
 REPEAT_VAL = REPEAT_MAX;
 
-
 def _setupWindow():
+	WINDOW_TOP_LEFT = _setSetting('WINDOW_TOP_LEFT')
+	WINDOW_BOTTOM_RIGHT = _setSetting('WINDOW_BOTTOM_RIGHT')
 
 def _setSetting(setting: str):
 	print(f'SET : {setting}')
