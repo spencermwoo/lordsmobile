@@ -60,6 +60,15 @@ def calculator(value):
 # ===================
 # TOP LEVEL FUNCTIONS
 
+def drag_right():
+    return
+
+def drag_down():
+    return
+
+def drag_left():
+    return
+
 def set_coordinates(coordinates):
     button_magnify()
 

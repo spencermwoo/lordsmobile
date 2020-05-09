@@ -10,7 +10,7 @@ def screenshot():
 def _validate(name):
     name = name.replace(" ","")
 
-    regex = f'^[{CHAR_WHITELIST}]+$'
+    regex = f'^[{WHITELIST}]+$'
     if re.match(regex, name):
         return name
     else:
@@ -43,6 +43,11 @@ def _search_name(name):
             if name == word:
                 return f'Successfully found {name} in {word}'
 
+    # get_coordinates()
+    # set_coordinates()
+
+    # drag
+
     # Screen in top left.
     # Repeatedly move right until X + Screen_X > Max_X
     # Move down Y
@@ -53,14 +58,16 @@ def _search_name(name):
         # print("Not Found.")
         # return 
 
-    return
+    return f'NOT FOUND : {name}'
     # return _search_name(name)
 
 def finder():
-    name = 'thanksmom'
+    name = 'quoc 78'
 
     print(f'Validating {name}')
     name = validate_name(name)
+
+    time.sleep(5)
 
     print(f'Searching for {name}')
 

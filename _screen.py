@@ -146,14 +146,14 @@ def _preprocess_alpha(image):
     cv2.imwrite(FN_TMP, n)
 
 def _preprocess(image):
-    data = mask(image)
+    data = _mask(image)
 
     cv2.imwrite(FN_TMP, data)
 
 def screen_read():
-	image = cv2.imread(FN_PSSR)
+    image = cv2.imread(FN_PSSR)
 
-	_preprocess(image)
+    _preprocess(image)
 
     image = cv2.imread(FN_TMP)
 
