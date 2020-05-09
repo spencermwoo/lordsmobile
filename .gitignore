@@ -46,3 +46,6 @@ __pycache__/
 html/
 *.tgz
 *.DS_Store
+play/
+tmp.jpg
+screen.jpg
