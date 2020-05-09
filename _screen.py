@@ -50,7 +50,7 @@ def bounding_box(image):
     plt.imshow(rgb_img)
     plt.title('CONFIDENCE BOUNDING BOX RECOGNITION')
     plt.show()
-    
+
 # grayscale
 def get_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -100,4 +100,53 @@ def deskew(image):
 
 # template matching
 def match_template(image, template):
-    return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED) 
+    return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
+
+# image string
+def stringify(image):
+    custom_config = f'-l {LANG} --oem {OEM} --psm {PSM} -c tessedit_char_whitelist={WHITELIST}'
+    d = pytesseract.image_to_string(image, config=custom_config)
+    return d.split()
+
+# image mask
+def high_mask(image):
+    data = np.array(image)
+
+    mask = np.all(image < MASK_THRESHOLD[0], axis=2)
+    data[mask] = [0, 0, 0]
+
+    return data
+
+def mask(image):
+    data = np.array(image)
+
+    mask = np.all(image < MASK_THRESHOLD[0], axis=2)
+    data[mask] = [255, 255, 255]
+
+    mask = np.all(image > MASK_THRESHOLD[1], axis=2)
+    data[mask] = [255, 255, 255]
+
+    return data
+
+def low_mask(image):
+    data = np.array(image)
+
+    mask = np.all(image > MASK_THRESHOLD[1], axis=2)
+    data[mask] = [0, 0, 0]
+
+    return data
+
+def preprocess_alpha(image):
+    g = get_grayscale(image)
+    t = thresholding(g)
+    o = opening(t)
+    r = canny(o)
+    r2 = remove_noise(t)
+
+    cv2.imwrite("v.png", r)
+    cv2.imwrite("v.png", r2)
+
+def preprocess(image):
+    data = mask(image)
+
+    cv2.imwrite('tmp.png', data)
