@@ -1,13 +1,13 @@
-from PIL import Image
 import cv2
+import pytesseract
 import numpy as np
 
-import pytesseract
 from pytesseract import Output
 from matplotlib import pyplot as plt
 import re
+# from _utils import *
 
-from _utils import *
+from _configurations import *
 
 def psm():
     img_name = '1'
@@ -141,12 +141,20 @@ def preprocess_alpha(image):
     t = thresholding(g)
     o = opening(t)
     r = canny(o)
-    r2 = remove_noise(t)
+    n = remove_noise(r)
 
-    cv2.imwrite("v.png", r)
-    cv2.imwrite("v.png", r2)
+    cv2.imwrite(FN_TMP, n)
 
 def preprocess(image):
     data = mask(image)
 
-    cv2.imwrite('tmp.png', data)
+    cv2.imwrite(FN_TMP, data)
+
+def screen_read():
+	image = cv2.imread(FN_PSSR)
+
+	preprocess(image)
+
+    image = cv2.imread(FN_TMP)
+
+    return stringify(image)
