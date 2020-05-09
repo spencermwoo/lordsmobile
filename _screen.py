@@ -9,14 +9,14 @@ import re
 
 from _configurations import *
 
-def psm():
+def _psm():
     img_name = '1'
     img = img_name + '.jpg'
     for i in range(1,13):
         text = pytesseract.image_to_string(img,lang='eng',config=r'--psm {i}')
         write_file(f'{img_name}{i}.txt', text)
 
-def bounding_box_naive(image):
+def _bounding_box_naive(image):
     h, w, c = image.shape
     boxes = pytesseract.image_to_boxes(image) 
     for b in boxes.splitlines():
@@ -31,7 +31,7 @@ def bounding_box_naive(image):
     plt.title('NAIVE BOUNDING BOX RECOGNITION')
     plt.show()
 
-def bounding_box(image):
+def _bounding_box(image):
     d = pytesseract.image_to_data(image, output_type=Output.DICT)
 
     n_boxes = len(d['text'])
@@ -52,39 +52,39 @@ def bounding_box(image):
     plt.show()
 
 # grayscale
-def get_grayscale(image):
+def _get_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # noise removal
-def remove_noise(image):
+def _remove_noise(image):
     return cv2.medianBlur(image,3)
  
 # thresholding
-def thresholding(image):
+def _thresholding(image):
     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
     # return cv2.threshold(image, 150, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
 # dilation
-def dilate(image):
+def _dilate(image):
     kernel = np.ones((5,5),np.uint8)
     return cv2.dilate(image, kernel, iterations = 1)
     
 # erosion
-def erode(image):
+def _erode(image):
     kernel = np.ones((5,5),np.uint8)
     return cv2.erode(image, kernel, iterations = 1)
 
 # erosion followed by dilation
-def opening(image):
+def _opening(image):
     kernel = np.ones((5,5),np.uint8)
     return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
 
 # canny edge detection
-def canny(image):
+def _canny(image):
     return cv2.Canny(image, 240, 260)
 
 # skew correction
-def deskew(image):
+def _deskew(image):
     coords = np.column_stack(np.where(image > 0))
     angle = cv2.minAreaRect(coords)[-1]
     if angle < -45:
@@ -99,17 +99,17 @@ def deskew(image):
     return rotated
 
 # template matching
-def match_template(image, template):
+def _match_template(image, template):
     return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
 
 # image string
-def stringify(image):
+def _stringify(image):
     custom_config = f'-l {LANG} --oem {OEM} --psm {PSM} -c tessedit_char_whitelist={WHITELIST}'
     d = pytesseract.image_to_string(image, config=custom_config)
     return d.split()
 
 # image mask
-def high_mask(image):
+def _high_mask(image):
     data = np.array(image)
 
     mask = np.all(image < MASK_THRESHOLD[0], axis=2)
@@ -117,7 +117,7 @@ def high_mask(image):
 
     return data
 
-def mask(image):
+def _mask(image):
     data = np.array(image)
 
     mask = np.all(image < MASK_THRESHOLD[0], axis=2)
@@ -128,7 +128,7 @@ def mask(image):
 
     return data
 
-def low_mask(image):
+def _low_mask(image):
     data = np.array(image)
 
     mask = np.all(image > MASK_THRESHOLD[1], axis=2)
@@ -136,7 +136,7 @@ def low_mask(image):
 
     return data
 
-def preprocess_alpha(image):
+def _preprocess_alpha(image):
     g = get_grayscale(image)
     t = thresholding(g)
     o = opening(t)
@@ -145,7 +145,7 @@ def preprocess_alpha(image):
 
     cv2.imwrite(FN_TMP, n)
 
-def preprocess(image):
+def _preprocess(image):
     data = mask(image)
 
     cv2.imwrite(FN_TMP, data)
@@ -153,8 +153,8 @@ def preprocess(image):
 def screen_read():
 	image = cv2.imread(FN_PSSR)
 
-	preprocess(image)
+	_preprocess(image)
 
     image = cv2.imread(FN_TMP)
 
-    return stringify(image)
+    return _stringify(image)
