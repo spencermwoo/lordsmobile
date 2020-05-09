@@ -1,48 +1,61 @@
 from PIL import Image
-import pytesseract
-import argparse
 import cv2
-import os
+import numpy as np
 
-# construct the argument parse and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="path to input image to be OCR'd")
-ap.add_argument("-p", "--preprocess", type=str, default="thresh",
-	help="type of preprocessing to be done")
-args = vars(ap.parse_args())
+import pytesseract
+from pytesseract import Output
+from matplotlib import pyplot as plt
+import re
 
+from _utils import *
 
-# load the example image and convert it to grayscale
-image = cv2.imread(args["image"])
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+# grayscale
+def get_grayscale(image):
+    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# check to see if we should apply thresholding to preprocess the
-# image
+# noise removal
+def remove_noise(image):
+    return cv2.medianBlur(image,3)
+ 
+# thresholding
+def thresholding(image):
+    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    # return cv2.threshold(image, 150, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-if args["preprocess"] == "thresh":
-	gray = cv2.threshold(gray, 150, 255,
-		cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+# dilation
+def dilate(image):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.dilate(image, kernel, iterations = 1)
+    
+# erosion
+def erode(image):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.erode(image, kernel, iterations = 1)
 
-# make a check to see if median blurring should be done to remove
-# noise
-elif args["preprocess"] == "blur":
-	gray = cv2.medianBlur(gray, 3)
+# erosion followed by dilation
+def opening(image):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
 
-# write the grayscale image to disk as a temporary file so we can
-# apply OCR to it
-# filename = "{}.png".format(os.getpid())
-# cv2.imwrite(filename, gray)
+# canny edge detection
+def canny(image):
+    return cv2.Canny(image, 240, 260)
 
-# load the image as a PIL/Pillow image, apply OCR, and then delete
-# the temporary file
-# text = pytesseract.image_to_string(Image.open(filename))
-# os.remove(filename)
-# print(text)
+# skew correction
+def deskew(image):
+    coords = np.column_stack(np.where(image > 0))
+    angle = cv2.minAreaRect(coords)[-1]
+    if angle < -45:
+        angle = -(90 + angle)
+    else:
+        angle = -angle
 
-# show the output images
-# cv2.imshow("Image", image)
-# cv2.imshow("Output", gray)
+    (h, w) = image.shape[:2]
+    center = (w // 2, h // 2)
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    rotated = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return rotated
 
-cv2.imwrite("gray_neutral.jpg", gray)
-# cv2.waitKey(0)
+# template matching
+def match_template(image, template):
+    return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED) 
