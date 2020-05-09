@@ -60,28 +60,3 @@ MYSTERY_BOX_CLAIM = (828, 748)
 # refer to `settings.png`
 # MODIFY ABOVE VALUES
 # =======================
-
-calc_min_x = CALCULATOR[1][0]
-calc_min_y = CALCULATOR[1][1]
-
-calc_x = (int)(CALCULATOR[9][0] - calc_min_x) / 2
-calc_y = (int)(CALCULATOR[9][1] - calc_min_y) / 2
-
-CALCULATOR[2] = (calc_min_x + calc_x 			, calc_min_y)
-CALCULATOR[3] = (calc_min_x + calc_x + calc_x 	, calc_min_y)
-
-CALCULATOR[4] = (calc_min_x 					, calc_min_y + calc_y)
-CALCULATOR[5] = (calc_min_x + calc_x			, calc_min_y + calc_y)
-CALCULATOR[6] = (calc_min_x + calc_x + calc_x	, calc_min_y + calc_y)
-
-CALCULATOR[7] = (calc_min_x 					, calc_min_y + calc_y + calc_y)
-CALCULATOR[8] = (calc_min_x + calc_x			, calc_min_y + calc_y + calc_y)
-
-CALCULATOR[0] = (calc_min_x + (calc_x / 4), calc_min_y + calc_y + calc_y + calc_y)
-CALCULATOR[10] = (calc_min_x + calc_x + calc_x - (calc_x / 4), calc_min_y + calc_y + calc_y + calc_y)
-
-for i in range(0, len(CALCULATOR)):
-	CALCULATOR[i] = ((int)(CALCULATOR[i][0]), (int)(CALCULATOR[i][1]))
-
-WINDOW_TOP_RIGHT = (WINDOW_BOTTOM_RIGHT[0], WINDOW_TOP_LEFT[1])
-WINDOW_BOTTOM_LEFT = (WINDOW_TOP_LEFT[0], WINDOW_BOTTOM_RIGHT[1])
