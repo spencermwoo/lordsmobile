@@ -1,5 +1,7 @@
 # I'm aware of convention but I find this more helpful.  I'll format at the end.
 
+quiet = False
+
 def write_file(filename, content, write: bool=True):
     with open(filename,"w" if write else "a", encoding="UTF-8") as file:
         file.write(content)
@@ -7,12 +9,14 @@ def write_file(filename, content, write: bool=True):
 def log(f):
     def print_log(*args, **kwargs):
         params = ', '.join([str(arg) for arg in args])
-        print(f"Running : {f.__name__}({params})")
+        if not quiet:
+            print(f"Running : {f.__name__}({params})")
 
         ret = f(*args, **kwargs)
-        print(f"\t {ret}")
+        if not quiet:
+            print(f"\t {ret}")
 
-        print(f"Exiting : {f.__name__}({params})")
+            print(f"Exiting : {f.__name__}({params})")
 
         return ret
 

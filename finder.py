@@ -1,12 +1,10 @@
 from _move import *
 from _screen import *
 
+@log
 def screenshot():
-    print("Taking screenshot in 5 seconds.")
-    time.sleep(5)
-
     filename = take_screenshot(WINDOW_TOP_LEFT[0], WINDOW_TOP_LEFT[1], WINDOW_BOTTOM_RIGHT[0], WINDOW_BOTTOM_RIGHT[1])
-
+    
     print(f"Created {filename}")
 
 def _validate(name):
@@ -23,6 +21,7 @@ def _validate_confidence(name):
 
     low_confidence = ['ol1i']
 
+@log
 def validate_name(name):
     _validate(name)
 
@@ -39,10 +38,10 @@ def _search_name(name):
     for word in text:
         if CONTAINS:
             if name in word:
-                return f'Successfully found {name}'
+                return f'Successfully found {name} in {word}'
         else:
             if name == word:
-                return f'Successfully found {name}'
+                return f'Successfully found {name} in {word}'
 
     # Screen in top left.
     # Repeatedly move right until X + Screen_X > Max_X
@@ -58,10 +57,12 @@ def _search_name(name):
     # return _search_name(name)
 
 def finder():
-    print("Running finder().")
-
     name = 'thanksmom'
+
+    print(f'Validating {name}')
     name = validate_name(name)
+
+    print(f'Searching for {name}')
 
     print(_search_name(name))
 
