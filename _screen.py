@@ -103,8 +103,8 @@ def _match_template(image, template):
     return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
 
 # image string
-def _stringify(image):
-    custom_config = f'-l {LANG} --oem {OEM} --psm {PSM} -c tessedit_char_whitelist={WHITELIST}'
+def _stringify(image, whitelist):
+    custom_config = f'-l {LANG} --oem {OEM} --psm {PSM} -c tessedit_char_whitelist={whitelist}'
     d = pytesseract.image_to_string(image, config=custom_config)
     return d.split()
 
@@ -150,11 +150,11 @@ def _preprocess(image):
 
     cv2.imwrite(FN_TMP, data)
 
-def screen_read():
+def screen_read(whitelist):
     image = cv2.imread(FN_PSSR)
 
     _preprocess(image)
 
     image = cv2.imread(FN_TMP)
 
-    return _stringify(image)
+    return _stringify(image, whitelist)

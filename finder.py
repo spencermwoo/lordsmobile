@@ -71,7 +71,7 @@ def finder():
 
     print(f'Searching for {name}')
 
-    print(_search_name(name))
+    print(_search_name(name, name))
 
     return
 
