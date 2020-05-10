@@ -71,3 +71,9 @@ def configure():
 
 	output = _string_comprehension(output)
 	write_file('_settings.py')
+
+
+# TODO : 
+
+# CURRENT PLAN IS TO GENERATE _settings.py for easy setup
+# IDEAL PLAN is to OCR all the _settings so there is no setup and it just works when it runs dynamically
