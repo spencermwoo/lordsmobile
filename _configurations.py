@@ -33,7 +33,7 @@ MASK_THRESHOLD = [180, 80]
 MASK = [255, 255, 255]
 
 # WHITELIST = '^[a-zA-Z0-9\[\]=^ ]$'
-WHITELIST = r'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\[\]=\^ #\$><')
+WHITELIST = r'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\[\]=\^ #\$><'
 # BLACLIST = r'~`\'\"'
 OEM=3
 PSM=6
