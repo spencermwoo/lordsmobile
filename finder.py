@@ -9,6 +9,12 @@ def screenshot():
     
     print(f"Created {filename}")
 
+@log
+def screen():
+    im = take_image(WINDOW_TOP_LEFT[0], WINDOW_TOP_LEFT[1], WINDOW_BOTTOM_RIGHT[0], WINDOW_BOTTOM_RIGHT[1], FN_PSSR)
+
+    return im
+
 def _validate(name):
     name = name.replace(" ","")
 
@@ -34,6 +40,9 @@ def validate_name(name):
 
 def _search_name(name):
     screenshot()
+    # im = screen()
+    # print(type(im))
+    # print(im)
 
     text = screen_read(name)
 
@@ -45,10 +54,12 @@ def _search_name(name):
             if name == word:
                 return f'Successfully found {name} in {word}'
 
+    # time.sleep(1)
     # get_coordinates()
     # set_coordinates()
-
+    drag(0, False)
     # drag
+
 
     # Screen in top left.
     # Repeatedly move right until X + Screen_X > Max_X
@@ -60,8 +71,8 @@ def _search_name(name):
         # print("Not Found.")
         # return 
 
-    return f'NOT FOUND : {name}'
-    # return _search_name(name)
+    # return f'NOT FOUND : {name}'
+    return _search_name(name)
 
 def finder():
     num_args = len(sys.argv)
@@ -76,11 +87,11 @@ def finder():
     print(f'Validating {name}')
     name = validate_name(name)
 
-    # time.sleep(5)
+    time.sleep(5)
 
-    # print(f'Searching for {name}')
+    print(f'Searching for {name}')
 
-    # print(_search_name(name))
+    print(_search_name(name))
 
     return
 

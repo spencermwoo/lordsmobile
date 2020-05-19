@@ -51,6 +51,12 @@ def take_screenshot(min_x, min_y, max_x, max_y, filename: str=None):
 
     return filename
 
+def take_image(min_x, min_y, max_x, max_y, filename: str=None):
+    box = (min_x, min_y, max_x, max_y)
+    im = pyscreenshot.grab(bbox=box)
+
+    return im
+
 import subprocess
 
 def run_process(output, program, cmd, *params):
