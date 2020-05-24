@@ -1,6 +1,10 @@
 # lordsmobile
 
-TODO : CURRENTLY A WIP
+[1](/assets/naive2.png)
+[2](/assets/orange.png)
+[3](/assets/orange_pp.png)
+
+This project is functional however it is not possible to search the entire kingdom via UI in the time frame I desired.  I've discontinued this project.
 
 # Index
 1. Lords Mobile
@@ -18,10 +22,6 @@ TODO : CURRENTLY A WIP
 
 ### <a id="introduction"></a>Introduction
 
-TODO : INSERT GIF EXAMPLE
-
----
-
 Problem : Searching in a Kingdom is difficult and not supported.
 
 Goal : Input `text` and this will search the Kingdom for `text`.
@@ -37,7 +37,8 @@ Requirements : Windows, Python 3.6+
 
 Run `configure.py` to 
 * (1) Install requirements
-* (2) Configure settings
+* (2) Validate requirements
+* (3) Generate settings `_settings.py`
 
 `python3 configure.pwc`
 

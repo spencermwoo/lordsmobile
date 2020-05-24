@@ -45,14 +45,22 @@ def _search_name(name):
     # print(im)
 
     text = screen_read(name)
-
+    success = False
     for word in text:
         if CONTAINS:
             if name in word:
-                return f'Successfully found {name} in {word}'
+                success = True
+                break
         else:
             if name == word:
-                return f'Successfully found {name} in {word}'
+                success = True
+                break
+
+    if success:
+        im = Image.open(FN_TMP)
+        im.show()
+
+        return f'Successfully found {name} in {word}'
 
     # time.sleep(1)
     # get_coordinates()

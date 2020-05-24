@@ -76,3 +76,5 @@ def configure():
 
 # CURRENT PLAN IS TO GENERATE _settings.py for easy setup
 # IDEAL PLAN is to OCR all the _settings so there is no setup and it just works when it runs dynamically
+
+# Add setup scripts to this file
